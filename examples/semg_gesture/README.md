@@ -5,8 +5,9 @@ recognising hand gestures from 12 channels of forearm surface EMG, and walks the
 public **NinaPro DB2** dataset to a streaming int8 model checked against **Akida Pico**.
 
 The model is **TENNs-R**, a state space model that trains as a convolution and runs as a recurrence.
-At **96,128 parameters** and int8 it reaches **85.31 % plus or minus 4.37** on the 49 gesture classes
-averaged over all 40 DB2 subjects, scored on a continuous stream rather than on pre-cut windows.
+At **96,128 parameters** and int8 it reaches **85.31 %, standard deviation 4.37** on the 49
+gesture classes averaged over all 40 DB2 subjects, scored on a continuous stream rather than on
+pre-cut windows.
 
 > **Read this before you look for performance numbers.** Unlike the other examples in this
 > repository, **this model does not fit the shipped Akida Pico FPGA**, so the notebook reports **no
@@ -21,8 +22,8 @@ place.
 ## Folder structure
 
 ```
-ninapro_db2/
-|- ninapro_db2_tenns_r.ipynb              # The tutorial notebook, the only code in this example
+semg_gesture/
+|- semg_gesture_tenns_r.ipynb             # The tutorial notebook, the only code in this example
 |- README.md
 |- weights/
 |   |- tenns_r_db2_s23.weights.h5         # Trained float weights, subject 23        (1.3 MB, LFS)
@@ -39,12 +40,12 @@ ninapro_db2/
 
 | Path | Purpose |
 |------|---------|
-| `ninapro_db2_tenns_r.ipynb` | dataset -> model -> stateful conversion -> int8 quantization -> Akida conversion and Pico budget -> streaming inference -> trigger -> 40-subject results |
+| `semg_gesture_tenns_r.ipynb` | dataset -> model -> stateful conversion -> int8 quantization -> Akida conversion and Pico budget -> streaming inference -> trigger -> 40-subject results |
 | `weights/tenns_r_db2_s23.weights.h5` | The trained float weights for subject 23, loaded into the model the notebook builds |
 | `calibration/db2_s23_calibration.npz` | Representative streams for post-training quantization, drawn from training repetitions only |
 | `test_data/db2_s23_test_segments.npz` | The subject's complete held-out set: repetitions 2 and 5 of all 49 gestures |
 | `test_data/db2_s23_protocol_excerpt.npz` | One contiguous stretch of recording, used to draw the training and scoring protocol |
-| `results/*.csv` | The cohort and literature tables behind the two closing figures |
+| `results/*.csv` | The 40-subject cohort accuracies and the published results behind the closing comparison figure |
 
 ## Quick start
 
@@ -68,7 +69,7 @@ ninapro_db2/
 3. **Pico.** No Pico device is required. The Pico section maps against `akida.PicoIP()`, a virtual
    device that carries the real board's memory configuration, so the check runs anywhere.
 
-4. **Run.** Open `ninapro_db2_tenns_r.ipynb` and run all cells in order (or **Run All**). Expect
+4. **Run.** Open `semg_gesture_tenns_r.ipynb` and run all cells in order (or **Run All**). Expect
    **four to ten minutes** end to end on a CPU, depending on the host: the two quantization passes
    and the two streaming passes over all 98 held-out segments dominate.
 
@@ -119,8 +120,8 @@ work.
 2. **Forty subjects, forty models**: why sEMG work is subject-dependent, and what that assumes.
 3. **The protocol**: how repetition segments tile the recording, which repetitions train, and how
    each held-out repetition is scored as one independent pass from a reset state.
-4. **Why a state space model**: buffer, re-reads and context, and the fact that Pico has no attention
-   primitive at all.
+4. **Why a state space model**: the buffer a window needs, and the fact that a window is a ceiling
+   on context while a carried state is not.
 5. **Build** the model on `akida_models.layer_blocks.kernelized_block`, 96,128 parameters.
 6. **Convert to stateful** first, then **quantize to int8**. That order matters and the notebook
    explains why.

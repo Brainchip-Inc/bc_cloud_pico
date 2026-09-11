@@ -20,7 +20,7 @@ API documentation is here: **https://doc.brainchipinc.com/index.html**
 |---------|------|----------------------|
 | [Keyword Spotting](examples/kws/) | 12-class speech-command recognition (audio, 16 kHz) | Streaming SSM keyword spotting on Pico — data → stateful conversion → quantization → Akida mapping → latency/throughput/power → streaming inference. |
 | [Bearing Fault Detection](examples/fault_detection/) | Multi-label vibration fault detection (accelerometer, 42 kHz) | The same pipeline on a 1-D vibration stream — real-time multi-label fault detection, hardware metrics, a float-vs-Akida comparison, and an accuracy-vs-decision-latency study. |
-| [sEMG Gesture Recognition](examples/ninapro_db2/) | 49-gesture hand-gesture recognition from forearm sEMG (12 channels, 2 kHz), NinaPro DB2 | A self-contained tutorial on continuous streaming recognition: dataset and protocol, stateful conversion, int8 quantization, the real Pico mapping constraints, a wake trigger, and results against the published DB2 literature. This model does not fit the shipped Pico FPGA, so it reports no hardware performance. |
+| [sEMG Gesture Recognition](examples/semg_gesture/) | 49-gesture hand-gesture recognition from forearm sEMG (12 channels, 2 kHz), NinaPro DB2 | A self-contained tutorial on continuous streaming recognition: dataset and protocol, stateful conversion, int8 quantization, the real Pico mapping constraints, a wake trigger, and results against the published DB2 literature. This model does not fit the shipped Pico FPGA, so it reports no hardware performance. |
 
 Each example folder has its own `README.md` with the details.
 
@@ -54,7 +54,7 @@ The Akida Cloud host already has the Pico FPGA attached and conda/Python availab
 
 4. **Open an example**, for example `examples/kws/kws_sc12.ipynb`,
    `examples/fault_detection/fault_detection_inference.ipynb` or
-   `examples/ninapro_db2/ninapro_db2_tenns_r.ipynb`, and run all cells in order.
+   `examples/semg_gesture/semg_gesture_tenns_r.ipynb`, and run all cells in order.
 
 ## The Pico device
 
