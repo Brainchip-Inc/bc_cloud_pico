@@ -1,0 +1,10 @@
+model,source,accuracy,accuracy_sd,n_classes,window_ms,params
+TraHGR-Base,"Zabihi et al., 2022",78.60,6.03,49,200,83731
+TraHGR-FNet,"Zabihi et al., 2022",80.72,5.82,49,200,366673
+TraHGR-large,"Zabihi et al., 2022",83.58,5.48,49,200,316051
+TraHGR-TNet,"Zabihi et al., 2022",83.39,5.44,49,200,472513
+TraHGR-Huge,"Zabihi et al., 2022",86.18,4.99,49,200,846579
+NKDFF-CNN,"as tabulated by He et al., 2026",88.03,,49,200,620000
+MvCNN,"as tabulated by He et al., 2026",85.8,,50,200,4030000
+MSDS-FusionNet,"He et al., 2026",90.15,,49,200,3710000
+Random forest (dataset paper),"Atzori et al., 2014",75.27,,50,200,
