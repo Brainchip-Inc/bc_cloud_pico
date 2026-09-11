@@ -63,8 +63,9 @@ def plot_accuracy_versus_parameters(published, ours_params, ours_accuracy):
         The matplotlib figure, ready to save.
     """
     figure, axes = plt.subplots(figsize=(11, 6.4))
-    # Labels sit under their bubble, except where two bubbles are too close for that to read.
-    label_left = {"TraHGR-large"}
+    # Labels sit under their bubble, except where a neighbouring bubble reaches into the space
+    # below this one: MvCNN under MSDS-FusionNet, and TraHGR-Huge under NKDFF-CNN.
+    label_left = {"TraHGR-large", "MSDS-FusionNet", "NKDFF-CNN"}
     for row in published:
         if not row["params"]:
             continue
