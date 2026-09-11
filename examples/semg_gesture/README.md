@@ -23,7 +23,7 @@ place.
 
 ```
 semg_gesture/
-|- semg_gesture_tenns_r.ipynb             # The tutorial notebook, the only code in this example
+|- ninapro_db2_tenns_r.ipynb              # The tutorial notebook, the only code in this example
 |- README.md
 |- weights/
 |   |- tenns_r_db2_s23.weights.h5         # Trained float weights, subject 23        (1.3 MB, LFS)
@@ -40,7 +40,7 @@ semg_gesture/
 
 | Path | Purpose |
 |------|---------|
-| `semg_gesture_tenns_r.ipynb` | dataset -> model -> stateful conversion -> int8 quantization -> Akida conversion and Pico budget -> streaming inference -> trigger -> 40-subject results |
+| `ninapro_db2_tenns_r.ipynb` | dataset -> model -> stateful conversion -> int8 quantization -> Akida conversion and Pico budget -> streaming inference -> trigger -> 40-subject results |
 | `weights/tenns_r_db2_s23.weights.h5` | The trained float weights for subject 23, loaded into the model the notebook builds |
 | `calibration/db2_s23_calibration.npz` | Representative streams for post-training quantization, drawn from training repetitions only |
 | `test_data/db2_s23_test_segments.npz` | The subject's complete held-out set: repetitions 2 and 5 of all 49 gestures |
@@ -69,7 +69,7 @@ semg_gesture/
 3. **Pico.** No Pico device is required. The Pico section maps against `akida.PicoIP()`, a virtual
    device that carries the real board's memory configuration, so the check runs anywhere.
 
-4. **Run.** Open `semg_gesture_tenns_r.ipynb` and run all cells in order (or **Run All**). Expect
+4. **Run.** Open `ninapro_db2_tenns_r.ipynb` and run all cells in order (or **Run All**). Expect
    **four to ten minutes** end to end on a CPU, depending on the host: the two quantization passes
    and the two streaming passes over all 98 held-out segments dominate.
 

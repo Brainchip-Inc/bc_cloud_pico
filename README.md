@@ -54,7 +54,7 @@ The Akida Cloud host already has the Pico FPGA attached and conda/Python availab
 
 4. **Open an example**, for example `examples/kws/kws_sc12.ipynb`,
    `examples/fault_detection/fault_detection_inference.ipynb` or
-   `examples/semg_gesture/semg_gesture_tenns_r.ipynb`, and run all cells in order.
+   `examples/semg_gesture/ninapro_db2_tenns_r.ipynb`, and run all cells in order.
 
 ## The Pico device
 
