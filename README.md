@@ -20,6 +20,7 @@ API documentation is here: **https://doc.brainchipinc.com/index.html**
 |---------|------|----------------------|
 | [Keyword Spotting](examples/kws/) | 12-class speech-command recognition (audio, 16 kHz) | Streaming SSM keyword spotting on Pico — data → stateful conversion → quantization → Akida mapping → latency/throughput/power → streaming inference. |
 | [Bearing Fault Detection](examples/fault_detection/) | Multi-label vibration fault detection (accelerometer, 42 kHz) | The same pipeline on a 1-D vibration stream — real-time multi-label fault detection, hardware metrics, a float-vs-Akida comparison, and an accuracy-vs-decision-latency study. |
+| [sEMG Gesture Recognition](examples/semg_gesture/) | 49-gesture hand-gesture recognition from forearm sEMG (12 channels, 2 kHz), NinaPro DB2 | A self-contained tutorial on continuous streaming recognition: dataset and protocol, stateful conversion, int8 quantization, the real Pico mapping constraints, a wake trigger, and results against the published DB2 literature. This model does not fit the shipped Pico FPGA, so it reports no hardware performance. |
 
 Each example folder has its own `README.md` with the details.
 
@@ -27,7 +28,15 @@ Each example folder has its own `README.md` with the details.
 
 The Akida Cloud host already has the Pico FPGA attached and conda/Python available.
 
-1. **Install dependencies:**
+1. **Fetch the large example assets** (needed by the sEMG example, whose weights, calibration
+   streams and held-out segments are stored with Git LFS):
+
+   ```bash
+   git lfs install
+   git lfs pull
+   ```
+
+2. **Install dependencies:**
 
    ```bash
    conda install -c conda-forge jupyterlab ffmpeg
@@ -37,18 +46,20 @@ The Akida Cloud host already has the Pico FPGA attached and conda/Python availab
    (`ffmpeg` is used by `tensorflow_datasets` to prepare the Speech Commands dataset for the Keyword
    Spotting example.)
 
-2. **Launch JupyterLab:**
+3. **Launch JupyterLab:**
 
    ```bash
    ./start-jupyterlab.sh
    ```
 
-3. **Open an example** — e.g. `examples/kws/kws_sc12.ipynb` or
-   `examples/fault_detection/fault_detection_inference.ipynb` — and run all cells in order.
+4. **Open an example**, for example `examples/kws/kws_sc12.ipynb`,
+   `examples/fault_detection/fault_detection_inference.ipynb` or
+   `examples/semg_gesture/ninapro_db2_tenns_r.ipynb`, and run all cells in order.
 
 ## The Pico device
 
-The examples run on a real Akida Pico device. Confirm it is visible before running:
+The Keyword Spotting and Bearing Fault Detection examples run on a real Akida Pico device. Confirm
+it is visible before running:
 
 ```bash
 akida devices            # or:  python -c "import akida; print(akida.devices())"
@@ -56,3 +67,6 @@ akida devices            # or:  python -c "import akida; print(akida.devices())"
 
 You should see one device. Hardware and platform details are in
 [examples/Akida_Cloud_Specs.md](examples/Akida_Cloud_Specs.md).
+
+The sEMG Gesture Recognition example needs no device: it checks the model against the Pico
+constraints using `akida.PicoIP()`, a virtual device carrying the board's memory configuration.
